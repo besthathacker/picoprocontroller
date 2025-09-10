@@ -21,7 +21,7 @@ jobs:
 
     - name: Get Pico SDK
       run: |
-        git clone --depth=1 https://github.com/raspberrypi/pico-sdk.git
+        git clone --depth=1 --recurse-submodules https://github.com/raspberrypi/pico-sdk.git
         echo "PICO_SDK_PATH=$GITHUB_WORKSPACE/pico-sdk" >> $GITHUB_ENV
 
     - name: Configure CMake
