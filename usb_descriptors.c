@@ -26,15 +26,10 @@ uint8_t const * tud_descriptor_device_cb(void) {
     return (uint8_t const *) &desc_device;
 }
 
-// HID Report Descriptor (buttons + hat + 2 sticks)
+// HID Report Descriptor
 uint8_t const desc_hid_report[] =
 {
-    TUD_HID_REPORT_DESC_GAMEPAD(
-        HID_GAMEPAD_MASK_DPAD | HID_GAMEPAD_MASK_BUTTON,
-        16,
-        1,
-        4
-    )
+    TUD_HID_REPORT_DESC_GAMEPAD()
 };
 
 uint8_t const *tud_hid_descriptor_report_cb(uint8_t instance) {

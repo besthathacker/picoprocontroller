@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 
-include(${PICO_SDK_PATH}/external/pico_sdk_import.cmake)
+include(pico_sdk_import.cmake)
 
 project(pico_switch_multi_dpad)
 

@@ -1,5 +1,4 @@
 #include "pico/stdlib.h"
-#include "bsp/board.h"
 #include "tusb.h"
 
 #define BTN_Y     2
@@ -47,15 +46,15 @@ void setup_pins() {
 }
 
 uint8_t dpad_hat_value() {
-    if (READ_BTN(DPAD1_UP) && READ_BTN(DPAD1_LEFT)) return HID_GAMEPAD_HAT_UP_LEFT;
-    if (READ_BTN(DPAD1_UP) && READ_BTN(DPAD1_RIGHT)) return HID_GAMEPAD_HAT_UP_RIGHT;
-    if (READ_BTN(DPAD1_DOWN) && READ_BTN(DPAD1_LEFT)) return HID_GAMEPAD_HAT_DOWN_LEFT;
-    if (READ_BTN(DPAD1_DOWN) && READ_BTN(DPAD1_RIGHT)) return HID_GAMEPAD_HAT_DOWN_RIGHT;
-    if (READ_BTN(DPAD1_UP)) return HID_GAMEPAD_HAT_UP;
-    if (READ_BTN(DPAD1_DOWN)) return HID_GAMEPAD_HAT_DOWN;
-    if (READ_BTN(DPAD1_LEFT)) return HID_GAMEPAD_HAT_LEFT;
-    if (READ_BTN(DPAD1_RIGHT)) return HID_GAMEPAD_HAT_RIGHT;
-    return HID_GAMEPAD_HAT_CENTERED;
+    if (READ_BTN(DPAD1_UP) && READ_BTN(DPAD1_LEFT)) return GAMEPAD_HAT_UP_LEFT;
+    if (READ_BTN(DPAD1_UP) && READ_BTN(DPAD1_RIGHT)) return GAMEPAD_HAT_UP_RIGHT;
+    if (READ_BTN(DPAD1_DOWN) && READ_BTN(DPAD1_LEFT)) return GAMEPAD_HAT_DOWN_LEFT;
+    if (READ_BTN(DPAD1_DOWN) && READ_BTN(DPAD1_RIGHT)) return GAMEPAD_HAT_DOWN_RIGHT;
+    if (READ_BTN(DPAD1_UP)) return GAMEPAD_HAT_UP;
+    if (READ_BTN(DPAD1_DOWN)) return GAMEPAD_HAT_DOWN;
+    if (READ_BTN(DPAD1_LEFT)) return GAMEPAD_HAT_LEFT;
+    if (READ_BTN(DPAD1_RIGHT)) return GAMEPAD_HAT_RIGHT;
+    return GAMEPAD_HAT_CENTERED;
 }
 
 void hid_task(void) {
@@ -92,7 +91,7 @@ void hid_task(void) {
 }
 
 int main() {
-    board_init();
+    stdio_init_all();
     tusb_init();
     setup_pins();
     while (1) {
