@@ -1,0 +1,38 @@
+name: Build Pico Switch Controller
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y cmake gcc-arm-none-eabi build-essential git
+
+    - name: Get Pico SDK
+      run: |
+        git clone --depth=1 https://github.com/raspberrypi/pico-sdk.git
+        echo "PICO_SDK_PATH=$GITHUB_WORKSPACE/pico-sdk" >> $GITHUB_ENV
+
+    - name: Configure CMake
+      run: |
+        cmake -B build -S . -DPICO_SDK_PATH=$PICO_SDK_PATH
+
+    - name: Build firmware
+      run: cmake --build build --parallel
+
+    - name: Upload UF2 artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: pico_switch_multi_dpad_firmware
+        path: build/*.uf2
